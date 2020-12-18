@@ -24,22 +24,6 @@ const DashboardRoute = () => {
     getLanguage();
   }, []);
 
-  // cy.get('main section li')
-  //   .eq(idx)
-  //   .within(($li) => {
-  //     cy.get('h4').should('have.text', word.original);
-
-  //     cy.root().should(
-  //       'contain',
-  //       `correct answer count: ${word.correct_count}`
-  //     );
-
-  //     cy.root().should(
-  //       'contain',
-  //       `incorrect answer count: ${word.incorrect_count}`
-  //     );
-  //   });
-
   return language && words ? (
     <section>
       <h2>{language.name}</h2>
