@@ -9,10 +9,10 @@ class RegistrationRoute extends Component {
     }
   };
 
-  handleRegistrationSuccess = () => {
-    const { history } = this.props;
-    history.push('/login');
-  };
+  // handleRegistrationSuccess = () => {
+  //   const { history } = this.props;
+  //   return history.push('/login');
+  // };
 
   render() {
     return (
@@ -31,8 +31,10 @@ class RegistrationRoute extends Component {
 }
 
 const StyledSection = styled.section`
-  width: 320px;
-  margin: 0 auto;
+  h2 {
+    text-align: center;
+    text-transform: capitalize;
+  }
 `;
 
 export default RegistrationRoute;

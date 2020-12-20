@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import config from '../../config';
 
 const DashboardRoute = () => {
@@ -25,27 +27,74 @@ const DashboardRoute = () => {
   }, []);
 
   return language && words ? (
-    <section>
+    <StyledSection>
       <h2>{language.name}</h2>
       <p>Total correct answers: {language.total_score}</p>
-      <a href='/learn'>Start practicing</a>
+      <Link to='/learn'>Start practicing</Link>
       <h3>Words to practice</h3>
 
       <main>
-        <section>
-          <ul>
-            {words.map((word, idx) => (
-              <li key={idx}>
-                <h4>{word.original}</h4>
-                <p>correct answer count: {word.correct_count}</p>
-                <p>incorrect answer count: {word.incorrect_count}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <StyledList>
+          {words.map((word, idx) => (
+            <li key={idx}>
+              <h4>{word.original}</h4>
+              <p>
+                <span>correct answer count:</span> {word.correct_count}
+              </p>
+              <p>
+                <span>incorrect answer count:</span> {word.incorrect_count}
+              </p>
+            </li>
+          ))}
+        </StyledList>
       </main>
-    </section>
+    </StyledSection>
   ) : null;
 };
+
+const StyledSection = styled.section`
+  text-align: center;
+
+  h3 {
+    text-transform: capitalize;
+  }
+
+  p {
+    text-transform: capitalize;
+    margin: 0;
+  }
+
+  a {
+    background-color: #3c3c3c;
+    color: #fff;
+    height: 3.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem;
+    text-decoration: none;
+  }
+`;
+
+const StyledList = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 1.6rem;
+
+  padding: 0;
+
+  li {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 0.01rem solid black;
+    padding: 3.2rem 0;
+
+    h4 {
+      margin: 0 0 1.6rem 0;
+    }
+  }
+`;
 
 export default DashboardRoute;

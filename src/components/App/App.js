@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import styled from 'styled-components';
 import Header from '../Header/Header';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import PublicOnlyRoute from '../PublicOnlyRoute/PublicOnlyRoute';
@@ -20,7 +21,7 @@ export default class App extends Component {
   render() {
     const { hasError } = this.state;
     return (
-      <div className='App'>
+      <StyledDiv className='App'>
         <Header />
         <main>
           {hasError && <p>There was an error! Oh no!</p>}
@@ -32,7 +33,12 @@ export default class App extends Component {
             <Route component={NotFoundRoute} />
           </Switch>
         </main>
-      </div>
+      </StyledDiv>
     );
   }
 }
+
+const StyledDiv = styled.div`
+  width: 28rem;
+  margin: 0 auto;
+`;

@@ -1,57 +1,91 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import TokenService from '../../services/token-service'
-import UserContext from '../../contexts/UserContext'
-import './Header.css'
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import TokenService from '../../services/token-service';
+import UserContext from '../../contexts/UserContext';
 
-class Header extends Component {
-  static contextType = UserContext
+const Header = () => {
+  const context = useContext(UserContext);
 
-  handleLogoutClick = () => {
-    this.context.processLogout()
-  }
+  const handleLogoutClick = () => {
+    return context.processLogout();
+  };
 
-  renderLogoutLink() {
+  const renderLogoutLink = () => {
     return (
       <div>
-        <span>
-          {this.context.user.name}
-        </span>
-        <nav>
-          <Link
-            onClick={this.handleLogoutClick}
-            to='/login'>
+        <nav className='logged-in'>
+          <span>{context.user.name}</span>
+          <Link onClick={handleLogoutClick} to='/login'>
             Logout
           </Link>
         </nav>
       </div>
-    )
-  }
+    );
+  };
 
-  renderLoginLink() {
+  const renderLoginLink = () => {
     return (
       <nav>
-        <Link to='/login'>Login</Link>
-        {' '}
-        <Link to='/register'>Sign up</Link>
+        <Link to='/login'>Login</Link> <Link to='/register'>Sign up</Link>
       </nav>
-    )
-  }
-
-  render() {
-    return (
-      <header>
-        <h1>
-          <Link to='/'>
-            Spaced repetition
-          </Link>
-        </h1>
-        {TokenService.hasAuthToken()
-          ? this.renderLogoutLink()
-          : this.renderLoginLink()}
-      </header>
     );
-  }
-}
+  };
 
-export default Header
+  return (
+    <StyledHeader>
+      <h1>
+        <Link to='/'>Spaced repetition</Link>
+      </h1>
+      {TokenService.hasAuthToken() ? renderLogoutLink() : renderLoginLink()}
+    </StyledHeader>
+  );
+};
+
+const StyledHeader = styled.header`
+  padding-bottom: 1.6rem;
+  border-bottom: 1px solid black;
+
+  a {
+    text-decoration: none;
+    text-transform: capitalize;
+    color: inherit;
+  }
+
+  h1 {
+    margin: 0;
+    text-align: center;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.8rem;
+
+    a {
+      background-color: #3c3c3c;
+      color: #fff;
+      height: 3.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem;
+      width: 49%;
+    }
+  }
+
+  nav.logged-in {
+    flex-direction: column;
+
+    span {
+      margin: 0 0 0.8rem 0;
+      text-align: center;
+    }
+
+    a {
+      width: 100%;
+    }
+  }
+`;
+
+export default Header;
