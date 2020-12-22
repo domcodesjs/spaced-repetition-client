@@ -72,7 +72,7 @@ const LearningRoute = () => {
         <p>
           You have answered this word incorrectly {wordIncorrectCount} times.
         </p>
-        <form onSubmit={handleSubmit}>
+        <StyledForm onSubmit={handleSubmit}>
           <label htmlFor='learn-guess-input'>
             What's the translation for this word?
           </label>
@@ -83,7 +83,7 @@ const LearningRoute = () => {
             onChange={(e) => setGuess(e.target.value)}
           />
           <button type='submit'>Submit your answer</button>
-        </form>
+        </StyledForm>
       </>
     );
   };

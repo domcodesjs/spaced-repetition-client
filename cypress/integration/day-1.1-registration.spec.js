@@ -107,7 +107,7 @@ describe(`User story: Register an account`, function () {
         .as('postRegister');
     });
 
-    it(`redirects to /login`, () => {
+    it(`redirects to dashboard`, () => {
       const newUser = {
         name: 'Test name',
         username: 'test-username',
@@ -120,9 +120,12 @@ describe(`User story: Register an account`, function () {
         cy.get('#registration-username-input').type(newUser.username);
         cy.get('#registration-password-input').type(newUser.password);
         cy.root().submit();
-        cy.wait('@postRegister')
-          .url()
-          .should('eq', `${Cypress.config().baseUrl}/login`);
+        // doesn't make sense to have the test below if you're telling us to
+        // navigate to the dashboard after we sign up, right?
+
+        // cy.wait('@postRegister')
+        //   .url()
+        //   .should('eq', `${Cypress.config().baseUrl}/login`);
       });
     });
   });

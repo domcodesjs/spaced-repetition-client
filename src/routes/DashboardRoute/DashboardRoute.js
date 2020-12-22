@@ -55,6 +55,10 @@ const DashboardRoute = () => {
 const StyledSection = styled.section`
   text-align: center;
 
+  h2 {
+    margin: 1.6rem 0 0 0;
+  }
+
   h3 {
     text-transform: capitalize;
   }
@@ -65,9 +69,10 @@ const StyledSection = styled.section`
   }
 
   a {
-    background-color: #3c3c3c;
+    margin-top: 1.6rem;
+    background-color: #2e8540;
     color: #fff;
-    height: 3.2rem;
+    height: 4.8rem;
     display: flex;
     align-items: center;
     justify-content: center;

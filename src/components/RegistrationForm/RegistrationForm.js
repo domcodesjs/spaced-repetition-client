@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Input, Required, Label } from '../Form/Form';
 import styled from 'styled-components';
 import AuthApiService from '../../services/auth-api-service';
 import UserContext from '../../contexts/UserContext';
@@ -45,11 +44,8 @@ const RegistrationForm = () => {
     <StyledForm onSubmit={handleSubmit}>
       <div role='alert'>{error && <p>{error}</p>}</div>
       <div>
-        <Label htmlFor='registration-name-input'>
-          Enter your name
-          <Required />
-        </Label>
-        <Input
+        <label htmlFor='registration-name-input'>Enter your name</label>
+        <input
           ref={firstInput}
           id='registration-name-input'
           name='name'
@@ -57,18 +53,12 @@ const RegistrationForm = () => {
         />
       </div>
       <div>
-        <Label htmlFor='registration-username-input'>
-          Choose a username
-          <Required />
-        </Label>
-        <Input id='registration-username-input' name='username' required />
+        <label htmlFor='registration-username-input'>Choose a username</label>
+        <input id='registration-username-input' name='username' required />
       </div>
       <div>
-        <Label htmlFor='registration-password-input'>
-          Choose a password
-          <Required />
-        </Label>
-        <Input
+        <label htmlFor='registration-password-input'>Choose a password</label>
+        <input
           id='registration-password-input'
           name='password'
           type='password'

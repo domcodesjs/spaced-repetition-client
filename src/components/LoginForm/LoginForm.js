@@ -1,7 +1,6 @@
 import { useRef, useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { Input, Label } from '../Form/Form';
 import AuthApiService from '../../services/auth-api-service';
 import UserContext from '../../contexts/UserContext';
 
@@ -40,8 +39,8 @@ const LoginForm = () => {
     <StyledForm className='LoginStyledForm' onSubmit={handleSubmit}>
       <div role='alert'>{error && <p>{error}</p>}</div>
       <div>
-        <Label htmlFor='login-username-input'>Username</Label>
-        <Input
+        <label htmlFor='login-username-input'>Username</label>
+        <input
           ref={firstInput}
           id='login-username-input'
           name='username'
@@ -49,8 +48,8 @@ const LoginForm = () => {
         />
       </div>
       <div>
-        <Label htmlFor='login-password-input'>Password</Label>
-        <Input
+        <label htmlFor='login-password-input'>Password</label>
+        <input
           id='login-password-input'
           name='password'
           type='password'
