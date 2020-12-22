@@ -1,83 +1,90 @@
-import React, { Component } from 'react'
-import { Input, Label } from '../Form/Form'
-import AuthApiService from '../../services/auth-api-service'
-import UserContext from '../../contexts/UserContext'
-import Button from '../Button/Button'
+import { useRef, useState, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+import AuthApiService from '../../services/auth-api-service';
+import UserContext from '../../contexts/UserContext';
 
-class LoginForm extends Component {
-  static defaultProps = {
-    onLoginSuccess: () => { }
-  }
+const LoginForm = () => {
+  const [error, setError] = useState(null);
+  const context = useContext(UserContext);
+  const firstInput = useRef(null);
+  let history = useHistory();
 
-  static contextType = UserContext
+  useEffect(() => {
+    firstInput.current.focus();
+  }, []);
 
-  state = { error: null }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { username, password } = e.target;
 
-  firstInput = React.createRef()
-
-  handleSubmit = ev => {
-    ev.preventDefault()
-    const { username, password } = ev.target
-
-    this.setState({ error: null })
+    setError(null);
 
     AuthApiService.postLogin({
       username: username.value,
-      password: password.value,
+      password: password.value
     })
-      .then(res => {
-        username.value = ''
-        password.value = ''
-        this.context.processLogin(res.authToken)
-        this.props.onLoginSuccess()
+      .then((res) => {
+        username.value = '';
+        password.value = '';
+        context.processLogin(res.authToken);
+        return history.push('/');
       })
-      .catch(res => {
-        this.setState({ error: res.error })
-      })
+      .catch((res) => {
+        return setError(res.error);
+      });
+  };
+
+  return (
+    <StyledForm className='LoginStyledForm' onSubmit={handleSubmit}>
+      <div role='alert'>{error && <p>{error}</p>}</div>
+      <div>
+        <label htmlFor='login-username-input'>Username</label>
+        <input
+          ref={firstInput}
+          id='login-username-input'
+          name='username'
+          required
+        />
+      </div>
+      <div>
+        <label htmlFor='login-password-input'>Password</label>
+        <input
+          id='login-password-input'
+          name='password'
+          type='password'
+          required
+        />
+      </div>
+      <button type='submit'>Login</button>
+    </StyledForm>
+  );
+};
+
+const StyledForm = styled.form`
+  div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.8rem;
+
+    label {
+      margin-bottom: 0.4rem;
+    }
+
+    input {
+      height: 4.8rem;
+      padding-left: 0.8rem;
+    }
   }
 
-  componentDidMount() {
-    this.firstInput.current.focus()
+  button {
+    height: 4.8rem;
+    width: 100%;
+    cursor: pointer;
+    background: #3c3c3c;
+    color: #fff;
+    border: none;
   }
+`;
 
-  render() {
-    const { error } = this.state
-    return (
-      <form
-        className='LoginForm'
-        onSubmit={this.handleSubmit}
-      >
-        <div role='alert'>
-          {error && <p>{error}</p>}
-        </div>
-        <div>
-          <Label htmlFor='login-username-input'>
-            Username
-          </Label>
-          <Input
-            ref={this.firstInput}
-            id='login-username-input'
-            name='username'
-            required
-          />
-        </div>
-        <div>
-          <Label htmlFor='login-password-input'>
-            Password
-          </Label>
-          <Input
-            id='login-password-input'
-            name='password'
-            type='password'
-            required
-          />
-        </div>
-        <Button type='submit'>
-          Login
-        </Button>
-      </form>
-    )
-  }
-}
-
-export default LoginForm
+export default LoginForm;

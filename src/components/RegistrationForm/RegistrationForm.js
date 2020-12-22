@@ -1,51 +1,51 @@
-import { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { Input, Required, Label } from '../Form/Form';
+import { useEffect, useState, useRef, useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import AuthApiService from '../../services/auth-api-service';
-import Button from '../Button/Button';
-import './RegistrationForm.css';
+import UserContext from '../../contexts/UserContext';
 
-const RegistrationForm = (props) => {
-  // static defaultProps = {
-  //   onRegistrationSuccess: () => {}
-  // };
+const RegistrationForm = () => {
   const [error, setError] = useState(null);
   const firstInput = useRef(null);
+  const context = useContext(UserContext);
+  let history = useHistory();
 
   useEffect(() => {
     firstInput.current.focus();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, username, password } = e.target;
-    console.log(name.value, username.value, password.value);
-    AuthApiService.postUser({
-      name: name.value,
-      username: username.value,
-      password: password.value
-    })
-      .then((user) => {
-        name.value = '';
-        username.value = '';
-        password.value = '';
-        return props.onRegistrationSuccess();
-      })
-      .catch((res) => {
-        return setError(res.error);
+
+    try {
+      await AuthApiService.postUser({
+        name: name.value,
+        username: username.value,
+        password: password.value
       });
+      const { authToken } = await AuthApiService.postLogin({
+        username: username.value,
+        password: password.value
+      });
+
+      name.value = '';
+      username.value = '';
+      password.value = '';
+
+      context.processLogin(authToken);
+      return history.push('/');
+    } catch ({ error }) {
+      return setError(error);
+    }
   };
 
   return (
     <StyledForm onSubmit={handleSubmit}>
       <div role='alert'>{error && <p>{error}</p>}</div>
       <div>
-        <Label htmlFor='registration-name-input'>
-          Enter your name
-          <Required />
-        </Label>
-        <Input
+        <label htmlFor='registration-name-input'>Enter your name</label>
+        <input
           ref={firstInput}
           id='registration-name-input'
           name='name'
@@ -53,18 +53,12 @@ const RegistrationForm = (props) => {
         />
       </div>
       <div>
-        <Label htmlFor='registration-username-input'>
-          Choose a username
-          <Required />
-        </Label>
-        <Input id='registration-username-input' name='username' required />
+        <label htmlFor='registration-username-input'>Choose a username</label>
+        <input id='registration-username-input' name='username' required />
       </div>
       <div>
-        <Label htmlFor='registration-password-input'>
-          Choose a password
-          <Required />
-        </Label>
-        <Input
+        <label htmlFor='registration-password-input'>Choose a password</label>
+        <input
           id='registration-password-input'
           name='password'
           type='password'
@@ -72,7 +66,7 @@ const RegistrationForm = (props) => {
         />
       </div>
       <footer>
-        <Button type='submit'>Sign up</Button>{' '}
+        <button type='submit'>Sign up</button>
         <Link to='/login'>Already have an account?</Link>
       </footer>
     </StyledForm>
@@ -83,11 +77,36 @@ const StyledForm = styled.form`
   div {
     display: flex;
     flex-direction: column;
+    margin-bottom: 0.8rem;
+
+    label {
+      margin-bottom: 0.4rem;
+    }
+
+    input {
+      height: 4.8rem;
+      padding-left: 0.8rem;
+    }
   }
 
   footer {
     display: flex;
     flex-direction: column;
+
+    button {
+      height: 4.8rem;
+      margin-bottom: 1.6rem;
+      cursor: pointer;
+      background: #3c3c3c;
+      color: #fff;
+      border: none;
+      text-transform: capitalize;
+    }
+
+    a {
+      text-align: center;
+      color: inherit;
+    }
   }
 `;
 
