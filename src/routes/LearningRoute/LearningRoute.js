@@ -63,15 +63,10 @@ const LearningRoute = () => {
   const renderQuestion = () => {
     return (
       <>
-        <div>
+        <StyledDiv>
           <h2>Translate the word:</h2>
           <span>{nextWord}</span>
-        </div>
-        <p>Your total score is: {totalScore}</p>
-        <p>You have answered this word correctly {wordCorrectCount} times.</p>
-        <p>
-          You have answered this word incorrectly {wordIncorrectCount} times.
-        </p>
+        </StyledDiv>
         <StyledForm onSubmit={handleSubmit}>
           <label htmlFor='learn-guess-input'>
             What's the translation for this word?
@@ -84,6 +79,13 @@ const LearningRoute = () => {
           />
           <button type='submit'>Submit your answer</button>
         </StyledForm>
+        <StyledDivTwo>
+          <p>Your total score is: {totalScore}</p>
+          <p>You have answered this word correctly {wordCorrectCount} times.</p>
+          <p>
+            You have answered this word incorrectly {wordIncorrectCount} times.
+          </p>
+        </StyledDivTwo>
       </>
     );
   };
@@ -117,6 +119,52 @@ const LearningRoute = () => {
   return loaded && <main>{render()}</main>;
 };
 
-const StyledForm = styled.form``;
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+
+  label {
+    text-align: center;
+    margin-bottom: 0.8rem;
+  }
+
+  input {
+    height: 4.8rem;
+    padding-left: 0.8rem;
+  }
+
+  button {
+    margin-top: 0.8rem;
+    height: 4.8rem;
+    text-transform: capitalize;
+    cursor: pointer;
+  }
+`;
+
+const StyledDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  span {
+    margin-left: 0.8rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    h2 {
+      font-size: 2.4rem;
+    }
+  }
+`;
+
+const StyledDivTwo = styled.div`
+  p {
+    text-align: center;
+  }
+`;
 
 export default LearningRoute;

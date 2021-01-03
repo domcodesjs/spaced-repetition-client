@@ -65,7 +65,7 @@ const StyledSection = styled.section`
 
   p {
     text-transform: capitalize;
-    margin: 0;
+    margin: 0.8rem 0 0 0;
   }
 
   a {
@@ -99,6 +99,10 @@ const StyledList = styled.ul`
     h4 {
       margin: 0 0 1.6rem 0;
     }
+  }
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 `;
 

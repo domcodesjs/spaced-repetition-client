@@ -44,6 +44,7 @@ const LoginForm = () => {
           ref={firstInput}
           id='login-username-input'
           name='username'
+          type='text'
           required
         />
       </div>

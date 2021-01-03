@@ -44,20 +44,26 @@ const RegistrationForm = () => {
     <StyledForm onSubmit={handleSubmit}>
       <div role='alert'>{error && <p>{error}</p>}</div>
       <div>
-        <label htmlFor='registration-name-input'>Enter your name</label>
+        <label htmlFor='registration-name-input'>Enter your name*</label>
         <input
           ref={firstInput}
           id='registration-name-input'
           name='name'
           required
+          type='text'
         />
       </div>
       <div>
-        <label htmlFor='registration-username-input'>Choose a username</label>
-        <input id='registration-username-input' name='username' required />
+        <label htmlFor='registration-username-input'>Choose a username*</label>
+        <input
+          id='registration-username-input'
+          name='username'
+          type='text'
+          required
+        />
       </div>
       <div>
-        <label htmlFor='registration-password-input'>Choose a password</label>
+        <label htmlFor='registration-password-input'>Choose a password*</label>
         <input
           id='registration-password-input'
           name='password'

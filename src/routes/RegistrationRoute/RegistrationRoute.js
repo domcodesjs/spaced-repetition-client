@@ -19,6 +19,10 @@ const StyledSection = styled.section`
     text-align: center;
     text-transform: capitalize;
   }
+
+  p {
+    text-align: center;
+  }
 `;
 
 export default RegistrationRoute;

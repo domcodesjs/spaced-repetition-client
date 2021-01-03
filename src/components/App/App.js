@@ -41,4 +41,8 @@ export default class App extends Component {
 const StyledDiv = styled.div`
   width: 28rem;
   margin: 0 auto;
+
+  @media screen and (min-width: 768px) {
+    width: 72rem;
+  }
 `;
