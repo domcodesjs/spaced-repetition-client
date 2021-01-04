@@ -1,5 +1,5 @@
 const config = {
-  API_ENDPOINT: 'http://localhost:5000/api',
+  API_ENDPOINT: 'https://spaced-repetition-server-v1.herokuapp.com',
   TOKEN_KEY: 'blogful-client-auth-token'
 };
 
