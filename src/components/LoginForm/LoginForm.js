@@ -82,7 +82,7 @@ const StyledForm = styled.form`
     height: 4.8rem;
     width: 100%;
     cursor: pointer;
-    background: #3c3c3c;
+    background: #2e8540;
     color: #fff;
     border: none;
   }

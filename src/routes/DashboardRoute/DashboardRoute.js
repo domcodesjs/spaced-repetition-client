@@ -93,7 +93,7 @@ const StyledList = styled.ul`
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 0.01rem solid black;
+    border: 0.01rem solid #fff;
     padding: 3.2rem 0;
 
     h4 {

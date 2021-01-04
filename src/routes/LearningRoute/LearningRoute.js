@@ -138,6 +138,9 @@ const StyledForm = styled.form`
     height: 4.8rem;
     text-transform: capitalize;
     cursor: pointer;
+    background: #2e8540;
+    border: none;
+    color: #fff;
   }
 `;
 

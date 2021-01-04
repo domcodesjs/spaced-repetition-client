@@ -16,7 +16,7 @@ const Header = () => {
       <div>
         <nav className='logged-in'>
           <span>{context.user.name}</span>
-          <Link onClick={handleLogoutClick} to='/login'>
+          <Link onClick={handleLogoutClick} to='/login' className='logout'>
             Logout
           </Link>
         </nav>
@@ -44,7 +44,7 @@ const Header = () => {
 
 const StyledHeader = styled.header`
   padding-bottom: 1.6rem;
-  border-bottom: 1px solid black;
+  border-bottom: 0.01rem solid #fff;
 
   a {
     text-decoration: none;
@@ -63,14 +63,18 @@ const StyledHeader = styled.header`
     margin-top: 0.8rem;
 
     a {
-      background-color: #3c3c3c;
+      background-color: #205493;
       color: #fff;
-      height: 3.2rem;
+      height: 4.8rem;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 0.8rem;
       width: 49%;
+    }
+
+    a.logout {
+      background-color: #e31c3d;
     }
   }
 

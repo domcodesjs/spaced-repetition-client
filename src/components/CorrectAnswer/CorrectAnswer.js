@@ -34,6 +34,9 @@ const StyledFeedback = styled.div`
     width: 100%;
     height: 4.8rem;
     cursor: pointer;
+    background: #2e8540;
+    color: #fff;
+    border: none;
   }
 `;
 

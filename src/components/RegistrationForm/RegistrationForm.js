@@ -103,7 +103,7 @@ const StyledForm = styled.form`
       height: 4.8rem;
       margin-bottom: 1.6rem;
       cursor: pointer;
-      background: #3c3c3c;
+      background: #2e8540;
       color: #fff;
       border: none;
       text-transform: capitalize;
